@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="u" type="id" />
+    <item name="d" type="id" />
+    <item name="r" type="id" />
+    <item name="l" type="id" />
+    <item name="l3" type="id" />
+    <item name="r3" type="id" />
+    <item name="d3" type="id" />
+    <item name="u3" type="id" />
+    <item name="l2" type="id" />
+    <item name="r2" type="id" />
+    <item name="d2" type="id" />
+    <item name="u2" type="id" />
+    <item name="u4" type="id" />
+    <item name="d4" type="id" />
+    <item name="r4" type="id" />
+    <item name="l4" type="id" />
+</resources>
