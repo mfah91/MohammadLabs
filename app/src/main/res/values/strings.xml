@@ -2,5 +2,15 @@
     <string name="app_name">MohammadLabs</string>
     <string name="hello_message">Hello World!!</string>
     <string name="button_message">I am a button</string>
+    <string name="editmessage">   </string>
+    <string name="hinttext" >type here</string>
+    <string name="cbox" > Check box </string>
+    <string name="myswitch"> Do you have a driver licence? Yes</string>
+    <string name="myswitch2"> No</string>
+    <string name="Option1" > Option 1</string>
+    <string name="Option2"> Option 2</string>
+
+    />
+    />
 
 </resources>
