@@ -3,4 +3,7 @@
     <string name="app_name">لابات محمد</string>
     <string name="hello_message">مرحبا بالعالم !!</string>
     <string name="button_message" translatable="false">انقر هنا</string>
+    <string name="button1">نقرة 1</string>
+    <string name="button3">نقرة 2</string>
+    <string name="button2">نقرة 3</string>
 </resources>
