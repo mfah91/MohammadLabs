@@ -1,6 +1,7 @@
 package algonquin.cst2335.mohammadl041008763;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Date;
@@ -12,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ChatRoom extends AppCompatActivity {
     RecyclerView chatList;
     @Override
-    protected void onPostCreate( Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        setContentView( R.layout.chatlayout );
-        chatList= findViewById(R.id.myrecycler);
-        chatList.setAdapter(new RecyclerView.Adapter() {
+    protected void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.chatlayout);
+        chatList = findViewById(R.id.myrecycler);
 
+        chatList.setAdapter(new MyChatAdaptor());
+    }
+          private class MyChatAdaptor extends RecyclerView.Adapter{
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(  ViewGroup parent, int viewType) {
                 return null;
@@ -32,7 +35,7 @@ public class ChatRoom extends AppCompatActivity {
             public int getItemCount() {
                 return 0;
             }
-        });
+
     }
     private class ChatMessage
     {
@@ -41,3 +44,4 @@ public class ChatRoom extends AppCompatActivity {
         Date timeSent;
     }
 }
+
