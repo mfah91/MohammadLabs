@@ -38,13 +38,13 @@ public class ChatRoom extends AppCompatActivity {
         chatList.setAdapter(adt);
         chatList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        send.setOnClickListener(clk ->{
+        send.setOnClickListener(e ->{
             ChatMessage thisMessage = new ChatMessage(edit.getText().toString(),1,new Date());
             messages.add(thisMessage);
             adt.notifyItemInserted(messages.size()-1);
             edit.setText("");
         });
-        receive.setOnClickListener(clk ->{
+        receive.setOnClickListener(e ->{
             ChatMessage thisMessage = new ChatMessage(edit.getText().toString(),2,new Date());
             messages.add(thisMessage);
             adt.notifyItemInserted(messages.size()-1);
@@ -60,24 +60,25 @@ public class ChatRoom extends AppCompatActivity {
               public MyRowViews(View itemView) {
                   super(itemView);
                   itemView.setOnClickListener(e -> {
+                      MyRowViews newRow = (MyRowViews) adt.onCreateViewHolder(null,adt.getItemViewType(position));
                       AlertDialog.Builder bu = new AlertDialog.Builder(ChatRoom.this);
-                      bu.setMessage("" + messageText.getText())
-                              .setTitle("")
-                              .setNegativeButton("no", (dlg, clic) -> {
-                              })
+                      bu.setMessage("Do you want Delete  " + messageText.getText() +" ??")
+                              .setTitle("Question:")
+                              .setNegativeButton("no", (dlg, clic) -> {})
                               .setPositiveButton("yes", (dlg, clic) -> {
+                                  position = getAbsoluteAdapterPosition();
+                                  ChatMessage delete = messages.get(position);
                                   messages.remove(position);
                                   adt.notifyItemRemoved(position);
-                                  ChatMessage delete = messages.get(position);
-                                  Snackbar.make(messageText, "" + position, Snackbar.LENGTH_LONG)
-                                          .setAction("", clk -> {
+                                   Snackbar.make(messageText, "You deleted message  " + position, Snackbar.LENGTH_LONG)
+                                          .setAction("Undo", clk -> {
                                               messages.add(position, delete);
                                               adt.notifyItemInserted(position);
-                                          });
+                                          }).show() ;
 
-                              })
-                                .create()
-                                .show();
+                              }) .show().create();
+
+
                   });
                   messageText = itemView.findViewById(R.id.message);
                   timeText = itemView.findViewById(R.id.time);
