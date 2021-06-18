@@ -76,7 +76,7 @@ public class ChatRoom extends AppCompatActivity {
                                               adt.notifyItemInserted(position);
                                           }).show() ;
 
-                              }) .show().create();
+                              }) .show();
 
 
                   });
