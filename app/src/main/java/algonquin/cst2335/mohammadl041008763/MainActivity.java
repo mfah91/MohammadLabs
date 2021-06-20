@@ -12,17 +12,24 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
-/*
-* @author Mohammad Abou Haibeh
-* @version 1.0.0
-*  */
+/**
+ * @author Mohammad Abou Haibeh
+ * @since  Jun 20
+ * @version 1.0
+ * */
 public class MainActivity extends AppCompatActivity {
-     TextView text  ;
-     EditText edit ;
-      Button btn  ;
+
+    /** This is holds the text at center of screen*/
+    private TextView text = null ;
+    /** This is holds the twist message at the buttom of the screen*/
+    private EditText edit = null ;
+    /** This is holds the Button*/
+   private    Button btn  = null;
 
 
     /**
+     * This fuction contains declartiion for variables
+     * setOn click event to check password complexity
      * @param savedInstanceState
      */
     @Override
@@ -36,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(clck -> {
             String password = edit.getText().toString();
             checkPasswordComplexity(password);
+            if(checkPasswordComplexity(password) == true){
+                text.setText("Your password meets the requirements");
+                return;
+            }else
+                text.setText("You shall not pass!");
+            return;
         });
     }
 
@@ -47,15 +60,22 @@ public class MainActivity extends AppCompatActivity {
      */
 
     boolean checkPasswordComplexity(String pw ) {
-         char c;
-         c = pw.charAt(0) ;
 
-
-        boolean upperCase = Character.isUpperCase(c);
-        boolean lowerCase = Character.isLowerCase(c);
-        boolean dijitcase = Character.isDigit(c);
-        boolean specialcase = isSpecialCharacter(c);
-
+        boolean foundUpperCase, foundLowerCase, foundNumber, foundSpecial;
+        foundUpperCase = foundLowerCase = foundNumber = foundSpecial = false;
+        for (int i = 0; i < pw.length(); i++) {
+            char c;
+            c= pw.charAt(i);
+            if (Character.isUpperCase(c)){
+                foundUpperCase = true;
+            }else if (Character.isLowerCase(c)){
+                foundLowerCase =true;
+            }else if (Character.isDigit(c)){
+                foundNumber = true;
+            }else if (isSpecialCharacter(c)){
+                foundSpecial = true;
+            }
+        }
         Context context = getApplicationContext();
         CharSequence text1 = "Missing upper case";
         CharSequence text2 = "Missing lower case";
@@ -64,35 +84,30 @@ public class MainActivity extends AppCompatActivity {
 
         int duration = Toast.LENGTH_SHORT;
 
-
-        for (int i = 0; i < pw.length(); i++) {
-
-
-
-            if (!upperCase   ) {
+            if (!foundUpperCase) {
                 Toast.makeText(context, text1, duration).show();
                 return false;
-            } else if (!lowerCase) {
+            } else if (!foundLowerCase) {
                 Toast.makeText(context, text2, duration).show();
 
                 return false;
 
-            } else if (!dijitcase) {
+            } else if (!foundNumber) {
                 Toast.makeText(context, text3, duration).show();
 
                 return false;
-            } else if (!specialcase) {
+            } else if (!foundSpecial) {
                 Toast.makeText(context, text4, duration).show();
                 return false;
             }
-           
+        return true;
 
          }
 
-        return true;
 
 
-    }
+
+
 
     /**
      * this fuction will check symbols and return special character
