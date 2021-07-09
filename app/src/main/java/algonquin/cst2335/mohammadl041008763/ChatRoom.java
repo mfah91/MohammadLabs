@@ -56,7 +56,7 @@ public class ChatRoom extends AppCompatActivity {
         LinearLayoutManager layoutManager =  new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         chatList.setLayoutManager(layoutManager);
         send.setOnClickListener(e ->{
-            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM-yyyy hh-mm-ss a", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a", Locale.getDefault());
             String time = sdf.format(new Date());
             ChatMessage thisMessage = new ChatMessage(edit.getText().toString(),1, time);
             ContentValues newRow = new ContentValues();
@@ -72,7 +72,7 @@ public class ChatRoom extends AppCompatActivity {
         });
 
       receive.setOnClickListener(e ->{
-            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM-yyyy hh-mm-ss a", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a", Locale.getDefault());
             String time = sdf.format(new Date());
             ChatMessage thisMessage = new ChatMessage(edit.getText().toString(),2, time);
             ContentValues newRow = new ContentValues();
@@ -100,13 +100,19 @@ public class ChatRoom extends AppCompatActivity {
                               .setTitle("Question:")
                               .setNegativeButton("no", (dlg, clic) -> {})
                               .setPositiveButton("yes", (dlg, clic) -> {
-
+                                  position = getAbsoluteAdapterPosition();
                                   ChatMessage delete = messages.get(position);
                                   messages.remove(position);
                                   adt.notifyItemRemoved(position);
+                                  db.delete(MyOpenHelper.TABLE_NAME , "_id=?", new String[]{Long.toString(delete.getId()) });
                                    Snackbar.make(messageText, "You deleted message  " + position, Snackbar.LENGTH_LONG)
                                           .setAction("Undo", clk -> {
                                               messages.add(position, delete);
+                                              db.execSQL("Insert into " + MyOpenHelper.TABLE_NAME + " Values('"
+                                          + delete.getId() +
+                                                              "','" + delete.getMessage() +
+                                                              "','" + delete.getSendOrReceive() +
+                                                              "','" + delete.getTimeSent() + "')");
                                               adt.notifyItemInserted(position);
                                           }).show() ;
 
@@ -146,9 +152,7 @@ public class ChatRoom extends AppCompatActivity {
               public void onBindViewHolder( RecyclerView.ViewHolder holder, int position) {
                   MyRowViews thisRowLayout = (MyRowViews)holder;
                   thisRowLayout.messageText.setText(messages.get(position).getMessage());
-//                  SimpleDateFormat sdf = new SimpleDateFormat("EEEE,dd-MMM-yyy hh-mm-ss a", Locale.getDefault());
-//                  String currentDate = sdf.format(messages.get(position).getTimeSent());
-//                  thisRowLayout.timeText.setText(currentDate);
+
                   thisRowLayout.setPosition(position);
               }
 
