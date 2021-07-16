@@ -96,15 +96,15 @@ public class MessageListFragment extends Fragment {
 
     public void notifyMessageDeleted(ChatMessage chosenMessage, int chosenPosition) {
         AlertDialog.Builder bu = new AlertDialog.Builder(getContext());
-        bu.setMessage("Do you want Delete  " + chosenMessage.getMessage() +" ??")
+        bu.setMessage("Do you want Delete  " + chosenMessage.getMessage())
                 .setTitle("Question:")
-                .setNegativeButton("no", (dlg, clic) -> {})
-                .setPositiveButton("yes", (dlg, clic) -> {
+                .setNegativeButton("Cancel", (dlg, clic) -> {})
+                .setPositiveButton("Delete", (dlg, clic) -> {
                     ChatMessage delete = messages.get(chosenPosition);
                     messages.remove(chosenPosition);
                     adt.notifyItemRemoved(chosenPosition);
                     db.delete(MyOpenHelper.TABLE_NAME , "_id=?", new String[]{Long.toString(delete.getId()) });
-                    Snackbar.make(send, "You deleted message  " + chosenPosition, Snackbar.LENGTH_LONG)
+                    Snackbar.make(send, "You deleted message  " + chosenPosition, Snackbar.LENGTH_SHORT)
                             .setAction("Undo", clk -> {
                                 messages.add(chosenPosition, delete);
                                               db.execSQL("Insert into " + MyOpenHelper.TABLE_NAME + " Values('"
@@ -164,7 +164,9 @@ public class MessageListFragment extends Fragment {
               public void onBindViewHolder( RecyclerView.ViewHolder holder, int position) {
                   MyRowViews thisRowLayout = (MyRowViews)holder;
                   thisRowLayout.messageText.setText(messages.get(position).getMessage());
-
+                  SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM-yyyy hh-mm-ss a", Locale.getDefault());
+                  String time = sdf.format(new Date());
+                  thisRowLayout.timeText.setText(time);
                   thisRowLayout.setPosition(position);
               }
 

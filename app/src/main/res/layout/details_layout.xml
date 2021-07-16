@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/messagegoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -18,37 +18,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/messagegoes" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/sendorRec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/time" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/sendorRec" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"

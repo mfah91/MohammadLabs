@@ -30,12 +30,12 @@ public class ChatRoom extends AppCompatActivity {
     boolean isTablet = false;
     MessageListFragment chatFragment;
 
-//    @Override
+    @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empty_layout);
-        chatFragment = new MessageListFragment();
         isTablet = findViewById(R.id.detailsRoom) != null;
+        chatFragment = new MessageListFragment();
 
         MessageListFragment chatFragment =  new MessageListFragment();
         FragmentManager fMgr = getSupportFragmentManager();

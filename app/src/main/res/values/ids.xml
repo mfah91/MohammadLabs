@@ -6,4 +6,6 @@
     <item name="textView6" type="id" />
     <item name="button3" type="id" />
     <item name="button4" type="id" />
+    <item name="loginid" type="id" />
+    <item name="edit" type="id" />
 </resources>
