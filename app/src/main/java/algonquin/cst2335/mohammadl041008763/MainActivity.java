@@ -1,16 +1,35 @@
 package algonquin.cst2335.mohammadl041008763;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.icu.text.CaseMap;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @author Mohammad Abou Haibeh
@@ -19,117 +38,53 @@ import java.util.regex.Pattern;
  * */
 public class MainActivity extends AppCompatActivity {
 
-    /** This is holds the text at center of screen*/
-    private TextView text = null ;
-    /** This is holds the twist message at the buttom of the screen*/
-    private EditText edit = null ;
-    /** This is holds the Button*/
-   private    Button btn  = null;
 
+
+    private String stringUrl = null;
 
     /**
      * This fuction contains declartiion for variables
      * setOn click event to check password complexity
+     *
      * @param savedInstanceState
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        text = findViewById(R.id.textView);
-        edit = findViewById(R.id.editText);
-        btn = findViewById(R.id.button);
+        EditText edit = findViewById(R.id.editText);
 
-        btn.setOnClickListener(clck -> {
-            String password = edit.getText().toString();
-            checkPasswordComplexity(password);
-            if(checkPasswordComplexity(password) == true){
-                text.setText("Your password meets the requirements");
-                return;
-            }else
-                text.setText("You shall not pass!");
-            return;
-        });
+         Button btn = findViewById(R.id.button);
+
+            btn.setOnClickListener((clc)-> {
+
+                Executor newThread = Executors.newSingleThreadExecutor();
+                newThread.execute(() -> {
+
+
+                    try {
+                        String cityname = edit.getText().toString();
+                        stringUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + URLEncoder.encode(cityname, "UTF-8") +
+                                "&appid=7e943c97096a9784391a981c4d878b22&Units=Metric";
+                        URL url = new URL(stringUrl);
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    } catch (IOException e) {
+                        Log.e("Connection Error:", e.getMessage());
+
+                    }
+                });
+
+            });
     }
-
-    /**
-     * this function checks the string
-     *
-     * @param pw The String object that we are checking
-     * @return Returns true if ....
-     */
-
-    boolean checkPasswordComplexity(String pw ) {
-
-        boolean foundUpperCase, foundLowerCase, foundNumber, foundSpecial;
-        foundUpperCase = foundLowerCase = foundNumber = foundSpecial = false;
-        for (int i = 0; i < pw.length(); i++) {
-            char c;
-            c= pw.charAt(i);
-            if (Character.isUpperCase(c)){
-                foundUpperCase = true;
-            }else if (Character.isLowerCase(c)){
-                foundLowerCase =true;
-            }else if (Character.isDigit(c)){
-                foundNumber = true;
-            }else if (isSpecialCharacter(c)){
-                foundSpecial = true;
-            }
-        }
-        Context context = getApplicationContext();
-        CharSequence text1 = "Missing upper case";
-        CharSequence text2 = "Missing lower case";
-        CharSequence text3 = "Missing Numbers";
-        CharSequence text4 = "Missing special char";
-
-        int duration = Toast.LENGTH_SHORT;
-
-            if (!foundUpperCase) {
-                Toast.makeText(context, text1, duration).show();
-                return false;
-            } else if (!foundLowerCase) {
-                Toast.makeText(context, text2, duration).show();
-
-                return false;
-
-            } else if (!foundNumber) {
-                Toast.makeText(context, text3, duration).show();
-
-                return false;
-            } else if (!foundSpecial) {
-                Toast.makeText(context, text4, duration).show();
-                return false;
-            }
-        return true;
-
-         }
-
-
-
-
-
-
-    /**
-     * this fuction will check symbols and return special character
-     *
-     * @param c
-     * @return
-     */
-    boolean isSpecialCharacter(char c) {
-        switch (c) {
-            case '#':
-            case '?':
-            case '*':
-            case '$':
-            case '%':
-            case '^':
-            case '&':
-            case '!':
-            case '@':
-                return true;
-            default:
-                return false;
-        }
-    }
-
 }
+
+
+
+
+
+
+
+
+
