@@ -32,25 +32,25 @@
         android:id="@+id/tempText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tempgoeshere" />
+          />
 
     <TextView
         android:id="@+id/MaxText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Max goes here" />
+        />
 
     <TextView
         android:id="@+id/MinText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Min goes here" />
+         />
 
     <TextView
         android:id="@+id/humText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hum goes here" />
+         />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -59,7 +59,7 @@
         android:id="@+id/DesText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description goes here" />
+        />
 
 
 </LinearLayout>
