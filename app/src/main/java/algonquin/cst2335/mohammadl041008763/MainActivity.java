@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
 
                         stringUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + URLEncoder.encode(cityName, "UTF-8") +
-                                "&appid=7e943c97096a9784391a981c4d878b22&Units=Metric";
+                                "&appid=7e943c97096a9784391a981c4d878b22&Units=Metric&mode=xml";
                         URL url = new URL(stringUrl);
                         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -112,16 +112,16 @@ public class MainActivity extends AppCompatActivity {
                             switch(xmlPullParser.getEventType()){
                                 case XmlPullParser.START_TAG:
                                     if(xmlPullParser.getName().equals("temperature")){
-                                        current = xmlPullParser.getAttributeValue(null,"vlue");
+                                        current = xmlPullParser.getAttributeValue(null,"value");
                                         min= xmlPullParser.getAttributeValue(null,"min");
                                         max =  xmlPullParser.getAttributeValue(null,"max");
                                     } else if(xmlPullParser.getName().equals("weather"))
                                     {
-                                        desc =xmlPullParser.getAttributeValue(null,"vlue");
-                                        icon = xmlPullParser.getAttributeValue(null,"");
+                                        desc =xmlPullParser.getAttributeValue(null,"value");
+                                        icon = xmlPullParser.getAttributeValue(null,"icon");
                                     }else if(xmlPullParser.getName().equals("humidity"))
                                     {
-                                        humitidy  =xmlPullParser.getAttributeValue(null,"vlue");
+                                        humitidy  =xmlPullParser.getAttributeValue(null,"value");
                                     }
                                    break;
                                 case XmlPullParser.END_TAG:
